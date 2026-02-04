@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
 // Fetch users and their order stats
 $stmt = $pdo->query("
-    SELECT u.id, u.username, u.fullname, u.email, 
+    SELECT u.id, u.username, u.fullname, u.email, u.phone, u.address, 
            COUNT(o.id) as order_count, 
            COALESCE(SUM(o.total_price), 0) as total_spent 
     FROM users u
@@ -30,9 +30,9 @@ include 'includes/header.php';
             <thead>
                 <tr style="background: rgba(255,255,255,0.05); text-align: left;">
                     <th style="padding: 15px;">User ID</th>
-                    <th style="padding: 15px;">Username</th>
                     <th style="padding: 15px;">Full Name</th>
-                    <th style="padding: 15px;">Email</th>
+                    <th style="padding: 15px;">Phone</th>
+                    <th style="padding: 15px;">Address</th>
                     <th style="padding: 15px;">Orders</th>
                     <th style="padding: 15px;">Total Spent</th>
                 </tr>
@@ -41,9 +41,9 @@ include 'includes/header.php';
                 <?php foreach ($users as $user): ?>
                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                         <td style="padding: 15px;">#<?= $user['id'] ?></td>
-                        <td style="padding: 15px;"><?= htmlspecialchars($user['username']) ?></td>
-                        <td style="padding: 15px;"><?= htmlspecialchars($user['fullname'] ?? '-') ?></td>
-                        <td style="padding: 15px;"><?= htmlspecialchars($user['email'] ?? '-') ?></td>
+                        <td style="padding: 15px;"><?= htmlspecialchars($user['fullname'] ?? $user['username']) ?></td>
+                        <td style="padding: 15px;"><?= htmlspecialchars($user['phone'] ?? '-') ?></td>
+                        <td style="padding: 15px; font-size: 0.9rem;"><?= htmlspecialchars($user['address'] ?? '-') ?></td>
                         <td style="padding: 15px;"><?= $user['order_count'] ?></td>
                         <td style="padding: 15px; color: #2ecc71; font-weight: bold;">$<?= number_format($user['total_spent'], 2) ?></td>
                     </tr>
