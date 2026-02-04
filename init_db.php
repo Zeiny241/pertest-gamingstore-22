@@ -8,6 +8,7 @@ try {
         price DECIMAL(10,2) NOT NULL,
         image VARCHAR(255),
         platform VARCHAR(50),
+        user_id INT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     
@@ -26,6 +27,7 @@ try {
     
     // Attempt to add columns if they don't exist (for existing tables)
     $alter_sql = "
+        ALTER TABLE products ADD COLUMN IF NOT EXISTS user_id INT;
         ALTER TABLE users ADD COLUMN IF NOT EXISTS fullname VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20);
