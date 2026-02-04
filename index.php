@@ -12,7 +12,19 @@ $stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
 $products = $stmt->fetchAll();
 ?>
 
-<h1 class="page-title">Featured Games</h1>
+<section class="hero">
+    <div class="container">
+        <h1>Welcome to GamingStore</h1>
+        <p>Discover the best games for PC, PlayStation, Xbox, and Nintendo Switch. Experience the next level of gaming.</p>
+        <?php if(!isset($_SESSION['user_id'])): ?>
+            <a href="register.php" class="btn">Get Started</a>
+        <?php else: ?>
+            <a href="#games" class="btn">Browse Games</a>
+        <?php endif; ?>
+    </div>
+</section>
+
+<h1 class="page-title" id="games">Featured Games</h1>
 
 <div class="grid">
     <?php foreach ($products as $product): ?>
