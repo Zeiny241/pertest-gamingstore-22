@@ -14,8 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
+    $fullname = trim($_POST['fullname']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $address = trim($_POST['address']);
 
-    if (empty($username) || empty($password) || empty($confirm_password)) {
+    if (empty($username) || empty($password) || empty($confirm_password) || empty($fullname) || empty($email) || empty($phone) || empty($address)) {
         $error = "All fields are required.";
     } elseif ($password !== $confirm_password) {
         $error = "Passwords do not match.";
@@ -27,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Username already exists.";
         } else {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-            if ($stmt->execute([$username, $hashed_password])) {
+            $stmt = $pdo->prepare("INSERT INTO users (username, password, fullname, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)");
+            if ($stmt->execute([$username, $hashed_password, $fullname, $email, $phone, $address])) {
                 $success = "Registration successful! You can now <a href='login.php' style='color: var(--primary);'>login</a>.";
             } else {
                 $error = "Something went wrong. Please try again.";
@@ -59,6 +63,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p style="color: #4cd137; text-align: center; margin-bottom: 20px;"><?php echo $success; ?></p>
     <?php endif; ?>
     <form method="POST" action="">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" name="fullname" id="fullname" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" name="phone" id="phone" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
+        </div>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control" required>
