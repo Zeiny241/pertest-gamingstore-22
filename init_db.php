@@ -39,6 +39,19 @@ try {
         // Alternative: individual ALTERS wrapped in try-catch
     }
 
+    // Create default admin user if not exists
+    $admin_user = 'admin';
+    $admin_pass = '1234';
+    
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->execute([$admin_user]);
+    if (!$stmt->fetch()) {
+        $hashed_pass = password_hash($admin_pass, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, password, role, fullname) VALUES (?, ?, 'admin', 'System Administrator')");
+        $stmt->execute([$admin_user, $hashed_pass]);
+        echo "\nDefault admin user created (admin/1234).";
+    }
+
     echo "Tables created/updated successfully.";
 } catch(PDOException $e) {
     echo "Error creating table: " . $e->getMessage();
