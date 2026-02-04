@@ -25,6 +25,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <span style="color: var(--text-color); align-self: center;">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                    <a href="profile.php" class="btn" style="background: var(--secondary); margin-right: 10px;">Profile</a>
                     <a href="logout.php" class="btn btn-danger">Logout</a>
                 <?php else: ?>
                     <a href="login.php">Login</a>

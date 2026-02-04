@@ -21,6 +21,14 @@ try {
         phone VARCHAR(20),
         address TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        status VARCHAR(50) DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
 
     $pdo->exec($sql);

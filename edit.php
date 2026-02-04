@@ -51,7 +51,7 @@ include 'includes/header.php';
 ?>
 
 <div class="form-container">
-    <h2 class="text-center mb-4" style="color: white;">Edit Game</h2>
+    <h2 class="text-center mb-4" style="color: white;">Edit Hardware</h2>
     
     <?php if($message): ?>
         <p style="color: #ff4757; text-align: center; margin-bottom: 20px;"><?= $message ?></p>
@@ -59,7 +59,7 @@ include 'includes/header.php';
 
     <form method="POST">
         <div class="form-group">
-            <label>Game Title *</label>
+            <label>Product Name *</label>
             <input type="text" name="name" class="form-control" required value="<?= htmlspecialchars($product['name']) ?>">
         </div>
 
@@ -69,12 +69,17 @@ include 'includes/header.php';
         </div>
 
         <div class="form-group">
-            <label>Platform</label>
+            <label>Category</label>
             <select name="platform" class="form-control" style="background: rgba(0,0,0,0.2); color:white; border: 1px solid rgba(255,255,255,0.1);">
-                <option value="PC" <?= $product['platform'] == 'PC' ? 'selected' : '' ?>>PC</option>
-                <option value="PlayStation 5" <?= $product['platform'] == 'PlayStation 5' ? 'selected' : '' ?>>PlayStation 5</option>
-                <option value="Xbox Series X" <?= $product['platform'] == 'Xbox Series X' ? 'selected' : '' ?>>Xbox Series X</option>
-                <option value="Switch" <?= $product['platform'] == 'Switch' ? 'selected' : '' ?>>Nintendo Switch</option>
+                <option value="GPU" <?= $product['platform'] == 'GPU' ? 'selected' : '' ?>>Graphics Card (GPU)</option>
+                <option value="CPU" <?= $product['platform'] == 'CPU' ? 'selected' : '' ?>>Processor (CPU)</option>
+                <option value="Mainboard" <?= $product['platform'] == 'Mainboard' ? 'selected' : '' ?>>Motherboard</option>
+                <option value="RAM" <?= $product['platform'] == 'RAM' ? 'selected' : '' ?>>RAM</option>
+                <option value="Storage" <?= $product['platform'] == 'Storage' ? 'selected' : '' ?>>SSD / HDD</option>
+                <option value="PowerSupply" <?= $product['platform'] == 'PowerSupply' ? 'selected' : '' ?>>Power Supply</option>
+                <option value="Case" <?= $product['platform'] == 'Case' ? 'selected' : '' ?>>Case</option>
+                <option value="Monitor" <?= $product['platform'] == 'Monitor' ? 'selected' : '' ?>>Monitor</option>
+                <option value="Peripheral" <?= $product['platform'] == 'Peripheral' ? 'selected' : '' ?>>Keyboard/Mouse</option>
             </select>
         </div>
 

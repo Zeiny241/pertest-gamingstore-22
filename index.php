@@ -14,17 +14,17 @@ $products = $stmt->fetchAll();
 
 <section class="hero">
     <div class="container">
-        <h1>Welcome to GamingStore</h1>
-        <p>Discover the best games for PC, PlayStation, Xbox, and Nintendo Switch. Experience the next level of gaming.</p>
+        <h1>Welcome to TechHardware Store</h1>
+        <p>Your one-stop shop for the best PC components: GPUs, CPUs, Mainboards, and more.</p>
         <?php if(!isset($_SESSION['user_id'])): ?>
             <a href="register.php" class="btn">Get Started</a>
         <?php else: ?>
-            <a href="#games" class="btn">Browse Games</a>
+            <a href="#products" class="btn">Browse Hardware</a>
         <?php endif; ?>
     </div>
 </section>
 
-<h1 class="page-title" id="games">Featured Games</h1>
+<h1 class="page-title" id="products">Featured Hardware</h1>
 
 <div class="grid">
     <?php foreach ($products as $product): ?>
@@ -42,6 +42,7 @@ $products = $stmt->fetchAll();
                 <div class="card-actions">
                     <div class="card-price">$<?= number_format($product['price'], 2) ?></div>
                     <div>
+                        <a href="buy.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 15px; font-size: 0.9rem; background: var(--secondary);">Buy Now</a>
                         <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                             <a href="edit.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">Edit</a>
                             <button onclick="confirmDelete(<?= $product['id'] ?>)" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Delete</button>

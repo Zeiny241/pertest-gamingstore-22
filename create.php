@@ -38,7 +38,7 @@ include 'includes/header.php';
 ?>
 
 <div class="form-container">
-    <h2 class="text-center mb-4" style="color: white;">Add New Game</h2>
+    <h2 class="text-center mb-4" style="color: white;">Add New Hardware</h2>
     
     <?php if($message): ?>
         <p style="color: #ff4757; text-align: center; margin-bottom: 20px;"><?= $message ?></p>
@@ -46,22 +46,27 @@ include 'includes/header.php';
 
     <form method="POST">
         <div class="form-group">
-            <label>Game Title *</label>
-            <input type="text" name="name" class="form-control" required placeholder="e.g. Elden Ring">
+            <label>Product Name *</label>
+            <input type="text" name="name" class="form-control" required placeholder="e.g. RTX 4090">
         </div>
 
         <div class="form-group">
             <label>Price ($) *</label>
-            <input type="number" step="0.01" name="price" class="form-control" required placeholder="59.99">
+            <input type="number" step="0.01" name="price" class="form-control" required placeholder="1599.99">
         </div>
 
         <div class="form-group">
-            <label>Platform</label>
+            <label>Category</label>
             <select name="platform" class="form-control" style="background: rgba(0,0,0,0.2); color:white; border: 1px solid rgba(255,255,255,0.1);">
-                <option value="PC">PC</option>
-                <option value="PlayStation 5">PlayStation 5</option>
-                <option value="Xbox Series X">Xbox Series X</option>
-                <option value="Switch">Nintendo Switch</option>
+                <option value="GPU">Graphics Card (GPU)</option>
+                <option value="CPU">Processor (CPU)</option>
+                <option value="Mainboard">Motherboard</option>
+                <option value="RAM">RAM</option>
+                <option value="Storage">SSD / HDD</option>
+                <option value="PowerSupply">Power Supply</option>
+                <option value="Case">Case</option>
+                <option value="Monitor">Monitor</option>
+                <option value="Peripheral">Keyboard/Mouse</option>
             </select>
         </div>
 
