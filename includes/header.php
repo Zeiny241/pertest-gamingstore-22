@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +20,14 @@
             <div class="nav-links">
                 <a href="index.php">Home</a>
                 <a href="create.php" class="btn">Add New Game</a>
+                
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <span style="color: var(--text-color); align-self: center;">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                    <a href="logout.php" class="btn btn-danger">Logout</a>
+                <?php else: ?>
+                    <a href="login.php">Login</a>
+                    <a href="register.php" class="btn">Register</a>
+                <?php endif; ?>
             </div>
         </nav>
     </div>
