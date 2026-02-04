@@ -22,8 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(!empty($name) && !empty($price)) {
         $user_id = $_SESSION['user_id'];
-        $stmt = $pdo->prepare("INSERT INTO products (name, price, platform, image, user_id) VALUES (?, ?, ?, ?, ?)");
-        if($stmt->execute([$name, $price, $platform, $image, $user_id])) {
+        $description = $_POST['description'];
+        $stock = $_POST['stock'];
+        
+        $stmt = $pdo->prepare("INSERT INTO products (name, price, platform, image, user_id, description, stock) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        if($stmt->execute([$name, $price, $platform, $image, $user_id, $description, $stock])) {
             header("Location: index.php");
             exit;
         } else {

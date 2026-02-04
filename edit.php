@@ -35,8 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image = $_POST['image'];
 
     if(!empty($name) && !empty($price)) {
-        $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, platform = ?, image = ? WHERE id = ?");
-        if($stmt->execute([$name, $price, $platform, $image, $id])) {
+        $description = $_POST['description'];
+        $stock = $_POST['stock'];
+        
+        $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, platform = ?, image = ?, description = ?, stock = ? WHERE id = ?");
+        if($stmt->execute([$name, $price, $platform, $image, $description, $stock, $id])) {
             header("Location: index.php");
             exit;
         } else {

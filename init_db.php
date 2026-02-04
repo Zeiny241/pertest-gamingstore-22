@@ -27,17 +27,30 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         product_id INT NOT NULL,
+        user_id INT,
         total_price DECIMAL(10,2),
+        description TEXT,
+        stock INT DEFAULT 10,
         status VARCHAR(50) DEFAULT 'pending',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
 
     $pdo->exec($sql);
     
+    // Create Wishlist Table
+    $pdo->exec("CREATE TABLE IF NOT EXISTS wishlist (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
+    
     // Attempt to add columns if they don't exist (for existing tables)
     $alter_sql = "
         ALTER TABLE orders ADD COLUMN IF NOT EXISTS total_price DECIMAL(10,2);
         ALTER TABLE products ADD COLUMN IF NOT EXISTS user_id INT;
+        ALTER TABLE products ADD COLUMN IF NOT EXISTS description TEXT;
+        ALTER TABLE products ADD COLUMN IF NOT EXISTS stock INT DEFAULT 10;
         ALTER TABLE users ADD COLUMN IF NOT EXISTS fullname VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20);

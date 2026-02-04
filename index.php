@@ -7,24 +7,57 @@ if (!isset($_SESSION['user_id'])) {
 }
 include 'includes/header.php';
 
-// Fetch products
-$stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
+// Fetch products with search and filter
+$search = $_GET['search'] ?? '';
+$category = $_GET['category'] ?? '';
+
+$sql = "SELECT * FROM products WHERE 1=1";
+$params = [];
+
+if ($search) {
+    $sql .= " AND name LIKE ?";
+    $params[] = "%$search%";
+}
+
+if ($category) {
+    $sql .= " AND platform = ?";
+    $params[] = $category;
+}
+
+$sql .= " ORDER BY created_at DESC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
 $products = $stmt->fetchAll();
 ?>
 
 <section class="hero">
     <div class="container">
-        <h1>Welcome to TechHardware Store</h1>
-        <p>Your one-stop shop for the best PC components: GPUs, CPUs, Mainboards, and more.</p>
+        <h1>ยินดีต้อนรับสู่ TechHardware</h1>
+        <p>แหล่งรวมอุปกรณ์คอมพิวเตอร์ครบวงจร GPU, CPU, Mainboard และอื่นๆ</p>
         <?php if(!isset($_SESSION['user_id'])): ?>
-            <a href="register.php" class="btn">Get Started</a>
+            <a href="register.php" class="btn">เริ่มต้นใช้งาน</a>
         <?php else: ?>
-            <a href="#products" class="btn">Browse Hardware</a>
+            <a href="#products" class="btn">เลือกชมสินค้า</a>
         <?php endif; ?>
+
+        <form action="index.php" method="GET" style="margin-top: 2rem; display: flex; justify-content: center; gap: 10px;">
+            <input type="text" name="search" placeholder="ค้นหาสินค้า..." class="form-control" style="width: 300px; background: rgba(255,255,255,0.1);">
+            <select name="category" class="form-control" style="width: 150px; background: rgba(255,255,255,0.1); color: white;">
+                <option value="">ทุกหมวดหมู่</option>
+                <option value="GPU">GPU</option>
+                <option value="CPU">CPU</option>
+                <option value="Mainboard">Mainboard</option>
+                <option value="RAM">RAM</option>
+                <option value="Storage">SSD / HDD</option>
+                <option value="Monitor">Monitor</option>
+                <option value="Peripheral">Peripheral</option>
+            </select>
+            <button type="submit" class="btn" style="border-radius: 12px;">ค้นหา</button>
+        </form>
     </div>
 </section>
 
-<h1 class="page-title" id="products">Featured Hardware</h1>
+<h1 class="page-title" id="products">สินค้าแนะนำ</h1>
 
 <div class="grid">
     <?php foreach ($products as $product): ?>
@@ -39,11 +72,11 @@ $products = $stmt->fetchAll();
                 <span class="card-platform"><?= htmlspecialchars($product['platform']) ?></span>
                 <h3 class="card-title"><?= htmlspecialchars($product['name']) ?></h3>
                 
-                <div class="card-actions">
-                    <div class="card-price">$<?= number_format($product['price'], 2) ?></div>
-                    <div>
-                        <a href="checkout.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 15px; font-size: 0.9rem; background: var(--secondary);">Buy Now</a>
-                        <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <div class="card-actions">
+                        <div class="card-price">$<?= number_format($product['price'], 2) ?></div>
+                        <div>
+                            <a href="product_details.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 15px; font-size: 0.9rem; background: var(--secondary);">รายละเอียด</a>
+                            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                             <a href="edit.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">Edit</a>
                             <button onclick="confirmDelete(<?= $product['id'] ?>)" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Delete</button>
                         <?php endif; ?>
