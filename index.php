@@ -42,7 +42,7 @@ $products = $stmt->fetchAll();
                 <div class="card-actions">
                     <div class="card-price">$<?= number_format($product['price'], 2) ?></div>
                     <div>
-                        <a href="buy.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 15px; font-size: 0.9rem; background: var(--secondary);">Buy Now</a>
+                        <a href="checkout.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 15px; font-size: 0.9rem; background: var(--secondary);">Buy Now</a>
                         <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                             <a href="edit.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">Edit</a>
                             <button onclick="confirmDelete(<?= $product['id'] ?>)" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Delete</button>

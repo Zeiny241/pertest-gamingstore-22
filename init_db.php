@@ -27,6 +27,7 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         product_id INT NOT NULL,
+        total_price DECIMAL(10,2),
         status VARCHAR(50) DEFAULT 'pending',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
@@ -35,6 +36,7 @@ try {
     
     // Attempt to add columns if they don't exist (for existing tables)
     $alter_sql = "
+        ALTER TABLE orders ADD COLUMN IF NOT EXISTS total_price DECIMAL(10,2);
         ALTER TABLE products ADD COLUMN IF NOT EXISTS user_id INT;
         ALTER TABLE users ADD COLUMN IF NOT EXISTS fullname VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(100);
