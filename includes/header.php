@@ -19,7 +19,9 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="index.php" class="logo">Gaming<span style="color: white;">Store</span></a>
             <div class="nav-links">
                 <a href="index.php">Home</a>
-                <a href="create.php" class="btn">Add New Game</a>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <a href="create.php" class="btn">Add New Game</a>
+                <?php endif; ?>
                 
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <span style="color: var(--text-color); align-self: center;">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?></span>

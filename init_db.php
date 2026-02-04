@@ -30,6 +30,7 @@ try {
         ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(100);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20);
         ALTER TABLE users ADD COLUMN IF NOT EXISTS address TEXT;
+        ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT 'user';
     ";
     try {
         $pdo->exec($alter_sql);
