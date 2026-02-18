@@ -5,8 +5,8 @@ require 'db.php';
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     include 'includes/header.php';
     echo '<div class="container text-center" style="margin-top: 5rem;">
-            <h1>ตะกร้าสินค้าว่างเปล่า</h1>
-            <a href="index.php" class="btn mt-4">เลือกซื้อสินค้า</a>
+            <h1>Your cart is empty</h1>
+            <a href="index.php" class="btn mt-4">Start Shopping</a>
           </div>';
     include 'includes/footer.php';
     exit;
@@ -23,17 +23,17 @@ include 'includes/header.php';
 ?>
 
 <div class="container" style="margin-top: 2rem;">
-    <h1 class="page-title">ตะกร้าสินค้า</h1>
+    <h1 class="page-title">Shopping Cart</h1>
 
     <div class="card" style="padding: 0;">
         <table style="width: 100%; border-collapse: collapse; color: white;">
             <thead>
                 <tr style="background: rgba(255,255,255,0.05); text-align: left;">
-                    <th style="padding: 15px;">สินค้า</th>
-                    <th style="padding: 15px;">ราคา</th>
-                    <th style="padding: 15px;">จำนวน</th>
-                    <th style="padding: 15px;">รวม</th>
-                    <th style="padding: 15px;">จัดการ</th>
+                    <th style="padding: 15px;">Product</th>
+                    <th style="padding: 15px;">Price</th>
+                    <th style="padding: 15px;">Quantity</th>
+                    <th style="padding: 15px;">Total</th>
+                    <th style="padding: 15px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,12 +60,12 @@ include 'includes/header.php';
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <input type="number" name="quantity" value="<?= $qty ?>" min="1" style="width: 60px; padding: 5px; border-radius: 5px; border: none;">
-                                <button type="submit" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">อัปเดต</button>
+                                <button type="submit" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">Update</button>
                             </form>
                         </td>
                         <td style="padding: 15px; color: #2ecc71;">$<?= number_format($subtotal, 2) ?></td>
                         <td style="padding: 15px;">
-                            <a href="cart_action.php?action=remove&id=<?= $product['id'] ?>" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">ลบ</a>
+                            <a href="cart_action.php?action=remove&id=<?= $product['id'] ?>" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Remove</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -76,10 +76,10 @@ include 'includes/header.php';
     <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
         <div class="card" style="width: 300px; padding: 1.5rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.2rem; font-weight: bold;">
-                <span>ยอดรวมทั้งหมด:</span>
+                <span>Total:</span>
                 <span style="color: var(--primary);">$<?= number_format($total_price, 2) ?></span>
             </div>
-            <a href="checkout.php" class="btn" style="width: 100%; text-align: center;">ดำเนินการชำระเงิน</a>
+            <a href="checkout.php" class="btn" style="width: 100%; text-align: center;">Proceed to Checkout</a>
         </div>
     </div>
 </div>

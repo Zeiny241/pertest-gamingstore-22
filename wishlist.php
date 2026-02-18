@@ -22,10 +22,10 @@ include 'includes/header.php';
 ?>
 
 <div class="container" style="margin-top: 2rem;">
-    <h1 class="page-title">รายการสิ่งที่อยากได้ (Wishlist)</h1>
+    <h1 class="page-title">My Wishlist</h1>
 
     <?php if (empty($products)): ?>
-        <p class="text-center" style="color: var(--text-muted);">คุณยังไม่มีสินค้าในรายการสิ่งที่อยากได้</p>
+        <p class="text-center" style="color: var(--text-muted);">Your wishlist is empty.</p>
     <?php else: ?>
         <div class="grid">
             <?php foreach ($products as $product): ?>
@@ -43,8 +43,8 @@ include 'includes/header.php';
                         <div class="card-actions">
                             <div class="card-price">$<?= number_format($product['price'], 2) ?></div>
                             <div style="display: flex; gap: 5px;">
-                                <a href="product_details.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">ดูสินค้า</a>
-                                <a href="wishlist_action.php?action=remove&id=<?= $product['wishlist_id'] ?>" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">ลบ</a>
+                                <a href="product_details.php?id=<?= $product['id'] ?>" class="btn" style="padding: 5px 10px; font-size: 0.8rem;">View</a>
+                                <a href="wishlist_action.php?action=remove&id=<?= $product['wishlist_id'] ?>" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Remove</a>
                             </div>
                         </div>
                     </div>

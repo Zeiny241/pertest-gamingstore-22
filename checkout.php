@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($coupon_code === 'XD007') {
             $discount = $total_price * 0.20; // 20% discount
             $final_price = $total_price - $discount;
-            $coupon_message = "คูปองใช้งานได้! ประหยัดไป $" . number_format($discount, 2);
+            $coupon_message = "Coupon applied! You saved $" . number_format($discount, 2);
         } else {
-            $coupon_message = "รหัสคูปองไม่ถูกต้อง";
+            $coupon_message = "Invalid coupon code";
             $final_price = $total_price;
         }
     } elseif (isset($_POST['confirm_order'])) {
@@ -77,13 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              $current_stock = $stmt->fetchColumn();
              
              if ($current_stock < $p['qty']) {
-                 $coupon_message = "สินค้า " . htmlspecialchars($p['name']) . " มีสินค้าไม่เพียงพอ (เหลือ " . $current_stock . " ชิ้น)";
+                 $coupon_message = "Item " . htmlspecialchars($p['name']) . " is out of stock (only " . $current_stock . " left)";
                  // Stop execution
                  break; 
              }
         }
         
-        if (strpos($coupon_message, 'ไม่เพียงพอ') === false) {
+        if (strpos($coupon_message, 'out of stock') === false) {
             foreach ($products as $p) {
                 $item_total = $p['price'] * $p['qty'] * (1 - ($discount/$total_price)); 
                 $ratio = $p['price'] * $p['qty'] / $total_price;
@@ -110,7 +110,7 @@ include 'includes/header.php';
 ?>
 
 <div class="form-container" style="max-width: 800px;">
-    <h2 class="text-center mb-4" style="color: white;">ชำระเงิน (Checkout)</h2>
+    <h2 class="text-center mb-4" style="color: white;">Checkout</h2>
     
     <div class="grid" style="grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem;">
         <?php foreach ($products as $p): ?>
@@ -130,52 +130,52 @@ include 'includes/header.php';
     </div>
 
     <?php if($coupon_message): ?>
-        <p style="color: <?= strpos($coupon_message, 'ใช้งานได้') !== false ? '#2ecc71' : '#ff4757' ?>; text-align: center; margin-bottom: 20px;"><?= $coupon_message ?></p>
+        <p style="color: <?= strpos($coupon_message, 'applied') !== false ? '#2ecc71' : '#ff4757' ?>; text-align: center; margin-bottom: 20px;"><?= $coupon_message ?></p>
     <?php endif; ?>
     
     <!-- Coupon Form -->
     <form method="POST" style="margin-bottom: 2rem;">
-        <label style="color:white;">รหัสคูปอง (Coupon Code)</label>
+        <label style="color:white;">Coupon Code</label>
         <div style="display: flex; gap: 10px;">
-            <input type="text" name="coupon_code" class="form-control" value="<?= htmlspecialchars($coupon_code) ?>" placeholder="กรอกโค้ดส่วนลด e.g. XD007">
-            <button type="submit" name="apply_coupon" class="btn" style="background: var(--secondary);">ใช้คูปอง</button>
+            <input type="text" name="coupon_code" class="form-control" value="<?= htmlspecialchars($coupon_code) ?>" placeholder="Enter code e.g. XD007">
+            <button type="submit" name="apply_coupon" class="btn" style="background: var(--secondary);">Apply</button>
         </div>
     </form>
 
     <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px; color: white;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-            <span>ยอดรวม (Subtotal):</span>
+            <span>Subtotal:</span>
             <span>$<?= number_format($total_price, 2) ?></span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 5px; color: #2ecc71;">
-            <span>ส่วนลด (Discount):</span>
+            <span>Discount:</span>
             <span>-$<?= number_format($discount, 2) ?></span>
         </div>
         <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.5rem; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
-            <span>ยอดสุทธิ (Total):</span>
+            <span>Total:</span>
             <span>$<?= number_format($final_price, 2) ?></span>
         </div>
     </div>
     
     <!-- Payment Method -->
-    <h3 style="color: white; margin-bottom: 1rem;">ช่องทางการชำระเงิน</h3>
+    <h3 style="color: white; margin-bottom: 1rem;">Payment Method</h3>
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 2rem;">
         <label class="btn" style="background: rgba(255,255,255,0.1); text-align: center; border: 1px solid transparent;">
             <input type="radio" name="payment" checked style="display: none;"> QR Code
         </label>
         <label class="btn" style="background: rgba(255,255,255,0.1); text-align: center; border: 1px solid transparent;">
-            <input type="radio" name="payment" style="display: none;"> โอนธนาคาร
+            <input type="radio" name="payment" style="display: none;"> Bank Transfer
         </label>
         <label class="btn" style="background: rgba(255,255,255,0.1); text-align: center; border: 1px solid transparent;">
-            <input type="radio" name="payment" style="display: none;"> บัตรเครดิต
+            <input type="radio" name="payment" style="display: none;"> Credit Card
         </label>
     </div>
 
     <form method="POST">
         <input type="hidden" name="coupon_code_hidden" value="<?= htmlspecialchars($coupon_code) ?>">
         <div class="text-center">
-            <button type="submit" name="confirm_order" class="btn" style="width: 100%; font-size: 1.2rem; padding: 1rem;">ยืนยันการสั่งซื้อ</button>
-            <a href="cart.php" style="display: block; margin-top: 15px; color: var(--text-muted);">กลับไปตะกร้าสินค้า</a>
+            <button type="submit" name="confirm_order" class="btn" style="width: 100%; font-size: 1.2rem; padding: 1rem;">Place Order</button>
+            <a href="cart.php" style="display: block; margin-top: 15px; color: var(--text-muted);">Back to Cart</a>
         </div>
     </form>
 </div>
