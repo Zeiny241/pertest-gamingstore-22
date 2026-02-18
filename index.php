@@ -32,32 +32,32 @@ $products = $stmt->fetchAll();
 
 <section class="hero">
     <div class="container">
-        <h1>ยินดีต้อนรับสู่ TechHardware</h1>
-        <p>แหล่งรวมอุปกรณ์คอมพิวเตอร์ครบวงจร GPU, CPU, Mainboard และอื่นๆ</p>
+        <h1>Level Up Your Setup</h1>
+        <p>The Ultimate Destination for High-Performance Gaming Gear.</p>
         <?php if(!isset($_SESSION['user_id'])): ?>
-            <a href="register.php" class="btn">เริ่มต้นใช้งาน</a>
+            <a href="register.php" class="btn">Join the Squad</a>
         <?php else: ?>
-            <a href="#products" class="btn">เลือกชมสินค้า</a>
+            <a href="#products" class="btn">Shop Now</a>
         <?php endif; ?>
 
         <form action="index.php" method="GET" style="margin-top: 2rem; display: flex; justify-content: center; gap: 10px;">
             <input type="text" name="search" placeholder="ค้นหาสินค้า..." class="form-control" style="width: 300px; background: rgba(255,255,255,0.1);">
             <select name="category" class="form-control" style="width: 150px; background: rgba(255,255,255,0.1); color: white;">
-                <option value="">ทุกหมวดหมู่</option>
-                <option value="GPU">GPU</option>
-                <option value="CPU">CPU</option>
-                <option value="Mainboard">Mainboard</option>
-                <option value="RAM">RAM</option>
-                <option value="Storage">SSD / HDD</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Peripheral">Peripheral</option>
+                <option value="">All Categories</option>
+                <option value="Mouse">Gaming Mouse</option>
+                <option value="Keyboard">Mechanical Keyboard</option>
+                <option value="Headset">Headset</option>
+                <option value="Monitor">Gaming Monitor</option>
+                <option value="Chair">Gaming Chair</option>
+                <option value="Controller">Controller</option>
+                <option value="Accessories">Accessories</option>
             </select>
             <button type="submit" class="btn" style="border-radius: 12px;">ค้นหา</button>
         </form>
     </div>
 </section>
 
-<h1 class="page-title" id="products">สินค้าแนะนำ</h1>
+<h1 class="page-title" id="products">New Arrivals</h1>
 
 <div class="grid">
     <?php foreach ($products as $product): ?>
