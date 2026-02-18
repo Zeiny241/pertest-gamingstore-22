@@ -41,9 +41,9 @@ include 'includes/header.php';
             <p style="font-size: 2.5rem; color: var(--primary); font-weight: 700; margin-bottom: 2rem;">$<?= number_format($product['price'], 2) ?></p>
 
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
-                <h3 style="margin-bottom: 10px; color: var(--text-color);">รายละเอียดสินค้า</h3>
+                <h3 style="margin-bottom: 10px; color: var(--text-color);">Product Details</h3>
                 <p style="color: var(--text-muted); line-height: 1.8;">
-                    <?= nl2br(htmlspecialchars($product['description'] ?? 'ยังไม่มีรายละเอียดสินค้า')) ?>
+                    <?= nl2br(htmlspecialchars($product['description'] ?? 'No description available.')) ?>
                 </p>
             </div>
 
@@ -52,21 +52,25 @@ include 'includes/header.php';
                 <input type="hidden" name="action" value="add">
                 
                 <div style="display: flex; align-items: center; background: rgba(255,255,255,0.1); border-radius: 50px; padding: 5px 15px;">
-                    <span style="margin-right: 10px; color: var(--text-muted);">จำนวน:</span>
-                    <input type="number" name="quantity" value="1" min="1" style="width: 60px; background: transparent; border: none; color: white; font-size: 1.2rem; font-weight: bold; text-align: center;">
+                    <span style="margin-right: 10px; color: var(--text-muted);">Quantity:</span>
+                    <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>" style="width: 60px; background: transparent; border: none; color: white; font-size: 1.2rem; font-weight: bold; text-align: center;">
                 </div>
 
                 <div style="display: flex; gap: 10px;">
-                    <button type="submit" class="btn" style="padding: 12px 30px; font-size: 1.1rem;">หยิบใส่ตะกร้า</button>
+                    <button type="submit" class="btn" style="padding: 12px 30px; font-size: 1.1rem;">Add to Cart</button>
                     <a href="wishlist_action.php?action=add&id=<?= $product['id'] ?>" class="btn" style="padding: 12px 20px; font-size: 1.1rem; background: #e91e63;">❤ Wishlist</a>
                 </div>
             </form>
             
             <div style="margin-top: 2rem;">
-                <h4 style="color: var(--text-muted);">Stock: <?= $product['stock'] > 0 ? '<span style="color:#2ecc71">In Stock (' . $product['stock'] . ')</span>' : '<span style="color:#ef4444">Out of Stock</span>' ?></h4>
+                <?php if ($product['stock'] > 0): ?>
+                    <h4 style="color: var(--text-muted);">Stock: <span style="color:#2ecc71">In Stock (<?= $product['stock'] ?>)</span></h4>
+                <?php else: ?>
+                    <h4 style="color: var(--text-muted);">Stock: <span style="color:#ef4444">Out of Stock</span></h4>
+                <?php endif; ?>
             </div>
             
-            <a href="index.php" style="display: inline-block; margin-top: 2rem; color: var(--text-muted);">&larr; กลับไปหน้ารายการสินค้า</a>
+            <a href="index.php" style="display: inline-block; margin-top: 2rem; color: var(--text-muted);">&larr; Back to Products</a>
         </div>
 
     </div>

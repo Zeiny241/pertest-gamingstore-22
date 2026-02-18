@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image = $_POST['image'];
 
     if(!empty($name) && !empty($price)) {
-        $description = $_POST['description'];
-        $stock = $_POST['stock'];
+        $description = $_POST['description'] ?? '';
+        $stock = $_POST['stock'] ?? 10;
         
         $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, platform = ?, image = ?, description = ?, stock = ? WHERE id = ?");
         if($stmt->execute([$name, $price, $platform, $image, $description, $stock, $id])) {
@@ -54,7 +54,7 @@ include 'includes/header.php';
 ?>
 
 <div class="form-container">
-    <h2 class="text-center mb-4" style="color: white;">Edit Hardware</h2>
+    <h2 class="text-center mb-4" style="color: white;">Edit Gear</h2>
     
     <?php if($message): ?>
         <p style="color: #ff4757; text-align: center; margin-bottom: 20px;"><?= $message ?></p>
@@ -74,16 +74,24 @@ include 'includes/header.php';
         <div class="form-group">
             <label>Category</label>
             <select name="platform" class="form-control" style="background: rgba(0,0,0,0.2); color:white; border: 1px solid rgba(255,255,255,0.1);">
-                <option value="GPU" <?= $product['platform'] == 'GPU' ? 'selected' : '' ?>>Graphics Card (GPU)</option>
-                <option value="CPU" <?= $product['platform'] == 'CPU' ? 'selected' : '' ?>>Processor (CPU)</option>
-                <option value="Mainboard" <?= $product['platform'] == 'Mainboard' ? 'selected' : '' ?>>Motherboard</option>
-                <option value="RAM" <?= $product['platform'] == 'RAM' ? 'selected' : '' ?>>RAM</option>
-                <option value="Storage" <?= $product['platform'] == 'Storage' ? 'selected' : '' ?>>SSD / HDD</option>
-                <option value="PowerSupply" <?= $product['platform'] == 'PowerSupply' ? 'selected' : '' ?>>Power Supply</option>
-                <option value="Case" <?= $product['platform'] == 'Case' ? 'selected' : '' ?>>Case</option>
-                <option value="Monitor" <?= $product['platform'] == 'Monitor' ? 'selected' : '' ?>>Monitor</option>
-                <option value="Peripheral" <?= $product['platform'] == 'Peripheral' ? 'selected' : '' ?>>Keyboard/Mouse</option>
+                <option value="Mouse" <?= $product['platform'] == 'Mouse' ? 'selected' : '' ?>>Gaming Mouse</option>
+                <option value="Keyboard" <?= $product['platform'] == 'Keyboard' ? 'selected' : '' ?>>Mechanical Keyboard</option>
+                <option value="Headset" <?= $product['platform'] == 'Headset' ? 'selected' : '' ?>>Headset</option>
+                <option value="Monitor" <?= $product['platform'] == 'Monitor' ? 'selected' : '' ?>>Gaming Monitor</option>
+                <option value="Chair" <?= $product['platform'] == 'Chair' ? 'selected' : '' ?>>Gaming Chair</option>
+                <option value="Controller" <?= $product['platform'] == 'Controller' ? 'selected' : '' ?>>Controller</option>
+                <option value="Accessories" <?= $product['platform'] == 'Accessories' ? 'selected' : '' ?>>Accessories</option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label>Stock</label>
+            <input type="number" name="stock" class="form-control" min="0" required value="<?= htmlspecialchars($product['stock'] ?? 10) ?>">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="3"><?= htmlspecialchars($product['description'] ?? '') ?></textarea>
         </div>
 
         <div class="form-group">
@@ -92,7 +100,7 @@ include 'includes/header.php';
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn">Update Game</button>
+            <button type="submit" class="btn">Update Gear</button>
             <a href="index.php" style="margin-left: 20px; color: var(--text-muted);">Cancel</a>
         </div>
     </form>
