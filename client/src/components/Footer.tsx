@@ -43,4 +43,3 @@ export default function Footer() {
     )
 }
 
-import Link from 'next/link'
