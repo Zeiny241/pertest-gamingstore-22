@@ -1,14 +1,14 @@
 :root {
-  --bg-color: #050608;
-  --card-bg: #0f1118;
-  --primary-color: #ff3e3e;
-  --primary-glow: rgba(255, 62, 62, 0.3);
-  --secondary-color: #b30000;
-  --text-color: #eeeeee;
-  --text-muted: #94a3b8;
-  --border-color: #2a2d3a;
-  --error: #ff4b4b;
-  --success: #00e676;
+  --bg-color: #050505;
+  --card-bg: #121212;
+  --primary-color: #ff0000;
+  --primary-glow: rgba(255, 0, 0, 0.4);
+  --secondary-color: #990000;
+  --text-color: #ffffff;
+  --text-muted: #a1a1aa;
+  --border-color: #262626;
+  --error: #ef4444;
+  --success: #22c55e;
 }
 
 * {
@@ -44,17 +44,20 @@ button {
 
 .neon-btn {
   background: var(--primary-color);
-  color: #000;
+  color: #fff;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: 700;
   box-shadow: 0 0 15px var(--primary-glow);
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .neon-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 25px var(--primary-glow);
+  box-shadow: 0 0 25px var(--primary-color);
+  background: var(--secondary-color);
 }
 
 .card {

@@ -14,7 +14,7 @@ interface ProductProps {
 export default function ProductCard({ product }: { product: ProductProps }) {
     return (
         <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#1e293b', borderRadius: '4px', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#0a0a0a', borderRadius: '4px', overflow: 'hidden' }}>
                 {product.image ? (
                     <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
