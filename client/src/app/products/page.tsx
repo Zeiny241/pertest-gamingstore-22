@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import ProductCard from '@/components/ProductCard'
+import ProductCard from '../components/ProductCard'
 import { Filter, SlidersHorizontal } from 'lucide-react'
 
 export default function ProductsPage() {
