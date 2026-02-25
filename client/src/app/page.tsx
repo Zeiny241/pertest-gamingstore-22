@@ -11,9 +11,9 @@ export default function Home() {
     return (
         <main>
             {/* Hero Section */}
-            <section style={{ padding: '6rem 0', background: 'radial-gradient(circle at center, #1a1b26 0%, #0a0b10 100%)', textAlign: 'center' }}>
+            <section style={{ padding: '6rem 0', background: 'radial-gradient(circle at center, #1a0505 0%, #050608 100%)', textAlign: 'center' }}>
                 <div className="container">
-                    <h1 style={{ fontSize: '4rem', marginBottom: '1.5rem', background: 'linear-gradient(to right, #00d2ff, #7000ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    <h1 style={{ fontSize: '4rem', marginBottom: '1.5rem', background: 'linear-gradient(to right, #ff3e3e, #b30000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textShadow: '0 0 20px rgba(255, 62, 62, 0.2)' }}>
                         UNLEASH TRUE PERFORMANCE
                     </h1>
                     <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
@@ -47,9 +47,9 @@ export default function Home() {
 
             {/* Flash Sale Banner */}
             <section className="container" style={{ marginBottom: '4rem' }}>
-                <div className="card" style={{ background: 'linear-gradient(135deg, #7000ff 0%, #00d2ff 100%)', color: '#000', padding: '3rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div className="card" style={{ background: 'linear-gradient(135deg, #b30000 0%, #ff3e3e 100%)', color: '#fff', padding: '3rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
                     <div style={{ position: 'relative', zIndex: 1 }}>
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>FLASH SALE: 30% OFF</h2>
+                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: '#fff' }}>FLASH SALE: 30% OFF</h2>
                         <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>Limited time offers on selection GPUs and SSDs. Don't miss out!</p>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                             <div style={{ background: '#000', color: '#fff', padding: '1rem', borderRadius: '8px', minWidth: '80px' }}>

@@ -12,7 +12,7 @@ export default function Navbar() {
                 </Link>
 
                 <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', background: '#1e293b', borderRadius: '4px', padding: '0.5rem 1rem' }}>
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', background: '#12141d', border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.5rem 1rem' }}>
                         <Search size={18} style={{ marginRight: '0.5rem', color: 'var(--text-muted)' }} />
                         <input
                             type="text"
