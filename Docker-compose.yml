@@ -1,45 +1,68 @@
 services:
-  php:
-    container_name: stock_php_22
-    build: .
-    ports:
-      - "8001:80"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  db:
-    container_name: stock_db_22
-    image: mariadb:10.6
+  database:
+    image: mysql:8.0
+    container_name: gaming_db
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: stock_system
+      MYSQL_DATABASE: gaming_store
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - gaming_db_data:/var/lib/mysql
+      - ./server/src/config/schema.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - app-network
+      - gaming_network
+
+  server:
+    build: ./server
+    container_name: gaming_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - database
+    networks:
+      - gaming_network
+
+  client:
+    build: ./client
+    container_name: gaming_client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - server
+    networks:
+      - gaming_network
 
   phpmyadmin:
-    container_name: stock_pma_22
     image: phpmyadmin/phpmyadmin
+    container_name: gaming_pma
     ports:
-      - "8080:80"
+      - "8081:80"
     environment:
-      PMA_HOST: stock_db_22
+      PMA_HOST: database
       MYSQL_ROOT_PASSWORD: rootpassword
     depends_on:
-      - db
+      - database
     networks:
-      - app-network
+      - gaming_network
 
 networks:
-  app-network:
+  gaming_network:
     driver: bridge
 
 volumes:
-  db_data:
+  gaming_db_data:
