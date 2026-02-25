@@ -1,3 +1,7 @@
+'use client'
+
+import Link from 'next/link'
+
 export default function Footer() {
     return (
         <footer style={{ background: '#05060a', borderTop: '1px solid var(--border-color)', padding: '4rem 0', marginTop: '4rem' }}>
